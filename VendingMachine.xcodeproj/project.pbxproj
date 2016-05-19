@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A34411711CED879B00E488DE /* vmAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = A34411701CED879B00E488DE /* vmAlertController.m */; };
 		A3E1ED991CEBD695006C83D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E1ED981CEBD695006C83D3 /* main.m */; };
 		A3E1ED9C1CEBD695006C83D3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E1ED9B1CEBD695006C83D3 /* AppDelegate.m */; };
 		A3E1ED9F1CEBD695006C83D3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A3E1ED9E1CEBD695006C83D3 /* ViewController.m */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A344116F1CED879B00E488DE /* vmAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vmAlertController.h; sourceTree = "<group>"; };
+		A34411701CED879B00E488DE /* vmAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vmAlertController.m; sourceTree = "<group>"; };
 		A3E1ED941CEBD693006C83D3 /* VendingMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VendingMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3E1ED981CEBD695006C83D3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A3E1ED9A1CEBD695006C83D3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -106,6 +109,8 @@
 				A3E1ED9D1CEBD695006C83D3 /* ViewController.h */,
 				A3E1ED9E1CEBD695006C83D3 /* ViewController.m */,
 				A3E1EDA01CEBD695006C83D3 /* Main.storyboard */,
+				A344116F1CED879B00E488DE /* vmAlertController.h */,
+				A34411701CED879B00E488DE /* vmAlertController.m */,
 				A3E1EDA31CEBD695006C83D3 /* Assets.xcassets */,
 				A3E1EDA51CEBD695006C83D3 /* LaunchScreen.storyboard */,
 				A3E1EDA81CEBD695006C83D3 /* Info.plist */,
@@ -271,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3E1ED9F1CEBD695006C83D3 /* ViewController.m in Sources */,
+				A34411711CED879B00E488DE /* vmAlertController.m in Sources */,
 				A3E1ED9C1CEBD695006C83D3 /* AppDelegate.m in Sources */,
 				A3E1ED991CEBD695006C83D3 /* main.m in Sources */,
 			);
@@ -496,6 +502,7 @@
 				A3E1EDC31CEBD695006C83D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A3E1EDC41CEBD695006C83D3 /* Build configuration list for PBXNativeTarget "VendingMachineTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +511,7 @@
 				A3E1EDC61CEBD695006C83D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A3E1EDC71CEBD695006C83D3 /* Build configuration list for PBXNativeTarget "VendingMachineUITests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +520,7 @@
 				A3E1EDC91CEBD695006C83D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

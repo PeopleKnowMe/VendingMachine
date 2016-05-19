@@ -10,6 +10,11 @@
 
 @interface ViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UILabel *change;
+@property (strong, nonatomic) IBOutlet UILabel *cash;
+
+@property NSNumber *curVal;
+@property NSNumber *changeVal;
 
 @end
 
