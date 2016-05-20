@@ -97,17 +97,69 @@
 {
  //   self.curVal = [self.curVal decimalNumberByAdding:coinVal];
     self.curVal = [NSNumber numberWithInt:[self.curVal intValue] + [coinVal intValue]];
-    NSLog(@"Val is: %@", self.curVal);
+    
+    [self updateCash];
+    
+//    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+//    
+//    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+//    
+//    int cents = [self.curVal intValue] % 100;
+//    int dollars = ([self.curVal intValue] - cents) / 100;
+//    
+//    NSString *camount;
+//    if (cents <=9)
+//    {
+//        camount = [NSString stringWithFormat:@"0%d",cents];
+//    }
+//    else
+//    {
+//        camount = [NSString stringWithFormat:@"%d",cents];
+//    }
+//    NSString *t = [NSString stringWithFormat:@"$%d.%@",dollars,camount];
+//    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        self.cash.text = t;
+//    });
+//    
+//    
+//    
+//    NSLog(@"Val is: %@", self.curVal);
+}
+
+-(void)updateCash
+{
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    
+    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    
+    int cents = [self.curVal intValue] % 100;
+    int dollars = ([self.curVal intValue] - cents) / 100;
+    
+    NSString *camount;
+    if (cents <=9)
+    {
+        camount = [NSString stringWithFormat:@"0%d",cents];
+    }
+    else
+    {
+        camount = [NSString stringWithFormat:@"%d",cents];
+    }
+    NSString *t = [NSString stringWithFormat:@"$%d.%@",dollars,camount];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.cash.text = t;
+    });
 }
 
 -(void)receiveChange
 {
     //self.changeLabel.text = self.changeVal;
-    self.changeVal = [NSNumber numberWithDouble:0.00];
+   // self.changeVal = [NSNumber numberWithDouble:0.00];
 }
 - (IBAction)change:(id)sender
 {
-   // [self calcChange:[NSNumber numberWithDouble:0.87]];
+   [self calcChange:self.curVal];
 }
 
 -(void)makePurchase:(NSString *)item
@@ -129,7 +181,8 @@
                 self.cokeCount = [NSNumber numberWithInt:val - 1];
                 NSLog(@"New val is: %@", self.curVal);
                 NSLog(@"Updated quantity is: %d", [self.cokeCount intValue]);
-                [self calcChange:self.curVal];
+                //[self calcChange:self.curVal];
+                [self updateCash];
             }
             else
             {
@@ -162,7 +215,8 @@
             self.pepsiCount = [NSNumber numberWithInt:val - 1];
             NSLog(@"New val is: %@", self.curVal);
             NSLog(@"Updated quantity is: %d", [self.pepsiCount intValue]);
-            [self calcChange:self.curVal];
+           // [self calcChange:self.curVal];
+            [self updateCash];
         }
         else
         {
@@ -194,7 +248,8 @@
             self.spriteCount = [NSNumber numberWithInt:val - 1];
             NSLog(@"New val is: %@", self.curVal);
             NSLog(@"Updated quantity is: %d", [self.spriteCount intValue]);
-            [self calcChange:self.curVal];
+           // [self calcChange:self.curVal];
+            [self updateCash];
         }
         else
         {
@@ -225,7 +280,8 @@
             self.fireballCount = [NSNumber numberWithInt:val - 1];
             NSLog(@"New val is: %@", self.curVal);
             NSLog(@"Updated quantity is: %d", [self.fireballCount intValue]);
-            [self calcChange:self.curVal];
+           // [self calcChange:self.curVal];
+            [self updateCash];
         }
         else
         {
@@ -255,7 +311,8 @@
             self.blueGuyCount = [NSNumber numberWithInt:val - 1];
             NSLog(@"New val is: %@", self.curVal);
             NSLog(@"Updated quantity is: %d", [self.blueGuyCount intValue]);
-            [self calcChange:self.curVal];
+          //  [self calcChange:self.curVal];
+            [self updateCash];
             
         }
         
@@ -319,6 +376,16 @@
 //    
     NSLog(@"Change is: %d Dollars, %d Quarters, %d Dimes, %d Nickels %d Pennies", numDollars, numQuarters, numDimes, numNickels, numPennies);
     
+    
+    NSString *changeString = [NSString stringWithFormat:@"%d Dollars, %d Quarters, %d Dimes, %d Nickels %d Pennies", numDollars, numQuarters, numDimes, numNickels, numPennies];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+            self.change.text = changeString;
+    });
+    
+    self.curVal = [NSNumber numberWithInt:0];
+    
+    [self updateCash];
 }
 
 - (void)didReceiveMemoryWarning {
