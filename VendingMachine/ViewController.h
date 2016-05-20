@@ -16,5 +16,12 @@
 @property NSNumber *curVal;
 @property NSNumber *changeVal;
 
+@property NSNumber *cokeCount;
+@property NSNumber *pepsiCount;
+@property NSNumber *spriteCount;
+@property NSNumber *fireballCount;
+@property NSNumber *blueGuyCount;
+
+
 @end
 

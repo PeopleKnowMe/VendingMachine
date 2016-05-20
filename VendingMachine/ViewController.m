@@ -18,37 +18,55 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.curVal = [NSNumber numberWithDouble:0.00];
-    self.changeVal = [NSNumber numberWithDouble:0.00];
+    //self.curVal = [NSNumber numberWithDouble:0.00];
+//    self.curVal = [NSDecimalNumber decimalNumberWithMantissa:000 exponent:-2 isNegative:NO];
+//    self.changeVal = [NSDecimalNumber decimalNumberWithMantissa:000 exponent:-2 isNegative:NO];
+    
+    self.curVal = [NSNumber numberWithInt:0];
+    self.changeVal = [NSNumber numberWithInt:0];
+ 
+    self.cokeCount = [NSNumber numberWithInt:10];
+    self.pepsiCount = [NSNumber numberWithInt:7];
+    self.spriteCount = [NSNumber numberWithInt:0];
+    self.fireballCount = [NSNumber numberWithInt:1];
+    self.blueGuyCount = [NSNumber numberWithInt:3];
+    
+    
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
 - (IBAction)penny:(id)sender
 {
-    [self insertedCoin:[NSNumber numberWithDouble:0.01]];
+    //[self insertedCoin:([NSDecimalNumber decimalNumberWithMantissa:.01 exponent:0 isNegative:NO])];
+    [self insertedCoin:[NSNumber numberWithInt:1]];
 }
 
 - (IBAction)nickel:(id)sender
 {
-    [self insertedCoin:[NSNumber numberWithDouble:0.05]];
+ //   [self insertedCoin:([NSDecimalNumber decimalNumberWithMantissa:.05 exponent:0 isNegative:NO])];
+    [self insertedCoin:[NSNumber numberWithInt:5]];
 }
 
 
 - (IBAction)dime:(id)sender
 {
-    [self insertedCoin:[NSNumber numberWithDouble:0.10]];
+    //[self insertedCoin:([NSDecimalNumber decimalNumberWithMantissa:.10 exponent:0 isNegative:NO])];
+    [self insertedCoin:[NSNumber numberWithInt:10]];
 }
 
 
 - (IBAction)quarter:(id)sender
 {
-    [self insertedCoin:[NSNumber numberWithDouble:0.25]];
+   // [self insertedCoin:([NSDecimalNumber decimalNumberWithMantissa:.25 exponent:0 isNegative:NO])];
+    [self insertedCoin:[NSNumber numberWithInt:25]];
 }
 
 
 - (IBAction)dollar:(id)sender
 {
-    [self insertedCoin:[NSNumber numberWithDouble:1.00]];
+    //[self insertedCoin:([NSDecimalNumber decimalNumberWithMantissa:1 exponent:0 isNegative:NO])];
+    [self insertedCoin:[NSNumber numberWithInt:100]];
 }
 
 - (IBAction)coke:(id)sender
@@ -56,10 +74,29 @@
     [self makePurchase:@"Coke"];
 }
 
+- (IBAction)sprite:(id)sender
+{
+    [self makePurchase:@"Sprite"];
+}
+
+- (IBAction)pepsi:(id)sender
+{
+    [self makePurchase:@"Pepsi"];
+}
+
+- (IBAction)fireball:(id)sender
+{
+    [self makePurchase:@"Fireball"];
+}
+- (IBAction)blueguy:(id)sender
+{
+    [self makePurchase:@"Blue Guy"];
+}
 
 -(void)insertedCoin:(NSNumber *)coinVal
 {
-    self.curVal = [NSNumber numberWithFloat:([self.curVal floatValue] + [coinVal floatValue])];
+ //   self.curVal = [self.curVal decimalNumberByAdding:coinVal];
+    self.curVal = [NSNumber numberWithInt:[self.curVal intValue] + [coinVal intValue]];
     NSLog(@"Val is: %@", self.curVal);
 }
 
@@ -70,21 +107,34 @@
 }
 - (IBAction)change:(id)sender
 {
-    [self calcChange:[NSNumber numberWithDouble:0.87]];
+   // [self calcChange:[NSNumber numberWithDouble:0.87]];
 }
 
 -(void)makePurchase:(NSString *)item
 {
+    
     if([item isEqualToString:@"Coke"])
     {
         NSLog(@"Val before purchase is: %@", self.curVal);
     //    NSLog(@"$1.85 is: %@", [NSNumber numberWithDouble:1.85]);
-        if([self.curVal doubleValue] >= [[NSNumber numberWithDouble:1.85] doubleValue])
+        if([self.curVal doubleValue] >= [[NSNumber numberWithDouble:185] doubleValue])
         {
+            if([self.cokeCount intValue] > 0)
+            {
                     //update quantities and dispense change
-            self.curVal = [NSNumber numberWithFloat:([self.curVal floatValue] - 1.85)];
+            self.curVal = [NSNumber numberWithDouble:([self.curVal doubleValue] - 185)];
             NSLog(@"Purchased");
+                //dispense change using curVal
+                int val = [self.cokeCount intValue];
+                self.cokeCount = [NSNumber numberWithInt:val - 1];
                 NSLog(@"New val is: %@", self.curVal);
+                NSLog(@"Updated quantity is: %d", [self.cokeCount intValue]);
+                [self calcChange:self.curVal];
+            }
+            else
+            {
+                [vmAlertController showAlert:@"Out Of Stock!" withMessage:@"We've run out of this beverage, sorry!"];
+            }
 
         }
         else
@@ -94,58 +144,93 @@
             //alert view saying insufficient funds
         }
     }
-    else if([item isEqualToString:@"Pepsi"])
+    
+    
+    if([item isEqualToString:@"Pepsi"])
     {
+        if([self.curVal doubleValue] >= [[NSNumber numberWithDouble:199] doubleValue])
+        {
         NSLog(@"Val before purchase is: %@", self.curVal);
      //   NSLog(@"$1.99 is: %@", [NSNumber numberWithDouble:1.99]);
-        if([self.curVal doubleValue] >= [[NSNumber numberWithDouble:1.99] doubleValue])
+        if([self.pepsiCount intValue] > 0)
         {
             //update quantities and dispense change
-            self.curVal = [NSNumber numberWithFloat:([self.curVal floatValue] - 1.99)];
+            self.curVal = [NSNumber numberWithDouble:([self.curVal doubleValue] - 199)];
             NSLog(@"Purchased");
+            //dispense change using curVal
+            int val = [self.pepsiCount intValue];
+            self.pepsiCount = [NSNumber numberWithInt:val - 1];
             NSLog(@"New val is: %@", self.curVal);
-            
+            NSLog(@"Updated quantity is: %d", [self.pepsiCount intValue]);
+            [self calcChange:self.curVal];
         }
         else
+        {
+            [vmAlertController showAlert:@"Out Of Stock!" withMessage:@"We've run out of this beverage, sorry!"];
+        }
+        }
+    else
         {
             NSLog(@"Insufficient Funds");
                          [vmAlertController showAlert:@"Insufficient Funds" withMessage:@"You don't have enough money to buy this."];
             //alert view saying insufficient funds
         }
-
-        
     }
-    else if([item isEqualToString:@"Sprite"])
+    
+    
+    if([item isEqualToString:@"Sprite"])
     {
         NSLog(@"Val before purchase is: %@", self.curVal);
+        if([self.curVal doubleValue] >= [[NSNumber numberWithDouble:135] doubleValue])
+        {
       //  NSLog(@"$1.35 is: %@", [NSNumber numberWithDouble:1.35]);
-        if([self.curVal doubleValue] >= [[NSNumber numberWithDouble:1.35] doubleValue])
+        if([self.spriteCount intValue] > 0)
         {
             //update quantities and dispense change
-            self.curVal = [NSNumber numberWithFloat:([self.curVal floatValue] - 1.35)];
+            self.curVal = [NSNumber numberWithDouble:([self.curVal doubleValue] - 135)];
             NSLog(@"Purchased");
+            //dispense change using curVal
+            int val = [self.spriteCount intValue];
+            self.spriteCount = [NSNumber numberWithInt:val - 1];
             NSLog(@"New val is: %@", self.curVal);
-            
+            NSLog(@"Updated quantity is: %d", [self.spriteCount intValue]);
+            [self calcChange:self.curVal];
         }
         else
+        {
+            [vmAlertController showAlert:@"Out Of Stock!" withMessage:@"We've run out of this beverage, sorry!"];
+        }
+        }
+    else
         {
             NSLog(@"Insufficient Funds");
                          [vmAlertController showAlert:@"Insufficient Funds" withMessage:@"You don't have enough money to buy this."];
             //alert view saying insufficient funds
         }
-
-        
     }
-    else if([item isEqualToString:@"Fireball"])
+    
+    if([item isEqualToString:@"Fireball"])
     {
         NSLog(@"Val before purchase is: %@", self.curVal);
       //  NSLog(@"$1.30 is: %@", [NSNumber numberWithDouble:14.20]);
-        if([self.curVal doubleValue] >= [[NSNumber numberWithDouble:14.20] doubleValue])
+        if([self.curVal doubleValue] >= [[NSNumber numberWithDouble:1420] doubleValue])
+        {
+        if([self.fireballCount intValue] > 0)
         {
             //update quantities and dispense change
-            self.curVal = [NSNumber numberWithFloat:([self.curVal floatValue] - 14.20)];
+            self.curVal = [NSNumber numberWithDouble:([self.curVal doubleValue] - 1420)];
             NSLog(@"Purchased");
+            //dispense change using curVal
+            int val = [self.fireballCount intValue];
+            self.fireballCount = [NSNumber numberWithInt:val - 1];
             NSLog(@"New val is: %@", self.curVal);
+            NSLog(@"Updated quantity is: %d", [self.fireballCount intValue]);
+            [self calcChange:self.curVal];
+        }
+        else
+        {
+            [vmAlertController showAlert:@"Out Of Stock!" withMessage:@"We've run out of this beverage, sorry!"];
+        }
             
         }
         else
@@ -154,20 +239,30 @@
                          [vmAlertController showAlert:@"Insufficient Funds" withMessage:@"You don't have enough money to buy this."];
             //alert view saying insufficient funds
         }
-
-        
     }
-    else if([item isEqualToString:@"Blue Guy"])
+    
+    if([item isEqualToString:@"Blue Guy"])
     {
-        NSLog(@"Val before purchase is: %@", self.curVal);
-        //NSLog(@"$1.30 is: %@", [NSNumber numberWithDouble:3.60]);
-        if([self.curVal doubleValue] >= [[NSNumber numberWithDouble:3.60] doubleValue])
+        if([self.curVal doubleValue] >= [[NSNumber numberWithDouble:360] doubleValue])
+        {
+        if([self.blueGuyCount intValue] > 0)
         {
             //update quantities and dispense change
-            self.curVal = [NSNumber numberWithFloat:([self.curVal floatValue] - 3.60)];
+            self.curVal = [NSNumber numberWithDouble:([self.curVal doubleValue] - 360)];
             NSLog(@"Purchased");
+            //dispense change using curVal
+            int val = [self.blueGuyCount intValue];
+            self.blueGuyCount = [NSNumber numberWithInt:val - 1];
             NSLog(@"New val is: %@", self.curVal);
+            NSLog(@"Updated quantity is: %d", [self.blueGuyCount intValue]);
+            [self calcChange:self.curVal];
             
+        }
+        
+        else
+        {
+            [vmAlertController showAlert:@"Out Of Stock!" withMessage:@"We've run out of this beverage, sorry!"];
+        }
         }
         else
         {
@@ -175,34 +270,32 @@
                          [vmAlertController showAlert:@"Insufficient Funds" withMessage:@"You don't have enough money to buy this."];
             //alert view saying insufficient funds
         }
-
-        
     }
 }
 
 -(void)calcChange:(NSNumber*)amount
 {
-    double dubAmt = 100*[amount doubleValue];
-    NSLog(@"Amount is: %d", ((int)dubAmt));
+    int dubAmt = [amount intValue];
+    NSLog(@"Amount is: %d", (dubAmt));
     
-    int numDollars = (int)dubAmt / 100;
+    int numDollars = dubAmt / 100;
     NSLog(@"Num Quarters: %d", numDollars);
     dubAmt = dubAmt - (100 * numDollars);
     
     
-    int numQuarters = (int)dubAmt / 25;
+    int numQuarters = dubAmt / 25;
     NSLog(@"Num Quarters: %d", numQuarters);
     dubAmt = dubAmt - (25 * numQuarters);
     
-    int numDimes = (int)dubAmt / 10;
+    int numDimes = dubAmt / 10;
     NSLog(@"Num Dimes: %d", numDimes);
     dubAmt = dubAmt - (10 * numDimes);
     
-    int numNickels = (int)dubAmt / 5;
+    int numNickels = dubAmt / 5;
     NSLog(@"Num Nickels: %d", numNickels);
     dubAmt = dubAmt - (5 * numNickels);
     
-    int numPennies = (int)dubAmt;
+    int numPennies = dubAmt;
     NSLog(@"Num Pennies: %d", numPennies);
 
     //int numDollars = fmod([amount doubleValue],1.0);
