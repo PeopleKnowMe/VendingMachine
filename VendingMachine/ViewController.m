@@ -136,19 +136,19 @@
     int cents = [self.curVal intValue] % 100;
     int dollars = ([self.curVal intValue] - cents) / 100;
     
-    NSString *camount;
+    NSString *cent_amount;
     if (cents <=9)
     {
-        camount = [NSString stringWithFormat:@"0%d",cents];
+        cent_amount = [NSString stringWithFormat:@"0%d",cents];
     }
     else
     {
-        camount = [NSString stringWithFormat:@"%d",cents];
+        cent_amount = [NSString stringWithFormat:@"%d",cents];
     }
-    NSString *t = [NSString stringWithFormat:@"$%d.%@",dollars,camount];
+    NSString *total = [NSString stringWithFormat:@"$%d.%@",dollars,cent_amount];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.cash.text = t;
+        self.cash.text = total;
     });
 }
 
@@ -377,7 +377,7 @@
     NSLog(@"Change is: %d Dollars, %d Quarters, %d Dimes, %d Nickels %d Pennies", numDollars, numQuarters, numDimes, numNickels, numPennies);
     
     
-    NSString *changeString = [NSString stringWithFormat:@"%d Dollars, %d Quarters, %d Dimes, %d Nickels %d Pennies", numDollars, numQuarters, numDimes, numNickels, numPennies];
+    NSString *changeString = [NSString stringWithFormat:@"%d Dollars, %d Quarters, %d Dimes, %d Nickels, %d Pennies", numDollars, numQuarters, numDimes, numNickels, numPennies];
     
     dispatch_async(dispatch_get_main_queue(), ^{
             self.change.text = changeString;
