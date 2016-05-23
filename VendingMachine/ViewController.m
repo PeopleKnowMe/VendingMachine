@@ -18,9 +18,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //self.curVal = [NSNumber numberWithDouble:0.00];
-//    self.curVal = [NSDecimalNumber decimalNumberWithMantissa:000 exponent:-2 isNegative:NO];
-//    self.changeVal = [NSDecimalNumber decimalNumberWithMantissa:000 exponent:-2 isNegative:NO];
+    
+    //Restore to default values on load/open
     
     self.curVal = [NSNumber numberWithInt:0];
     self.changeVal = [NSNumber numberWithInt:0];
@@ -33,8 +32,9 @@
     
     
     
-    // Do any additional setup after loading the view, typically from a nib.
 }
+
+//IBActions for each button for cash insertion (penny -> dollar)
 
 - (IBAction)penny:(id)sender
 {
@@ -69,6 +69,8 @@
     [self insertedCoin:[NSNumber numberWithInt:100]];
 }
 
+//Purchase buttons for each item
+
 - (IBAction)coke:(id)sender
 {
     [self makePurchase:@"Coke"];
@@ -93,39 +95,18 @@
     [self makePurchase:@"Blue Guy"];
 }
 
+
+//Updates value of current money inserted
+
 -(void)insertedCoin:(NSNumber *)coinVal
 {
  //   self.curVal = [self.curVal decimalNumberByAdding:coinVal];
     self.curVal = [NSNumber numberWithInt:[self.curVal intValue] + [coinVal intValue]];
     
     [self updateCash];
-    
-//    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-//    
-//    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-//    
-//    int cents = [self.curVal intValue] % 100;
-//    int dollars = ([self.curVal intValue] - cents) / 100;
-//    
-//    NSString *camount;
-//    if (cents <=9)
-//    {
-//        camount = [NSString stringWithFormat:@"0%d",cents];
-//    }
-//    else
-//    {
-//        camount = [NSString stringWithFormat:@"%d",cents];
-//    }
-//    NSString *t = [NSString stringWithFormat:@"$%d.%@",dollars,camount];
-//    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        self.cash.text = t;
-//    });
-//    
-//    
-//    
-//    NSLog(@"Val is: %@", self.curVal);
 }
+
+//Formats value to proper currency
 
 -(void)updateCash
 {
@@ -152,15 +133,28 @@
     });
 }
 
+//Deprecated function, no longer necessary
+
 -(void)receiveChange
 {
     //self.changeLabel.text = self.changeVal;
    // self.changeVal = [NSNumber numberWithDouble:0.00];
 }
+
+//calls calcChange from change UIButton
+
 - (IBAction)change:(id)sender
 {
    [self calcChange:self.curVal];
 }
+
+/* Checks which item is being purchased and performs the following:
+ 
+    1) Checks if current money inserted is greater than cost of item, else alerts user
+    2) Checks if in stock, else alerts for out of stock
+    3) If both conditions met, reduces inventory by one, updates cash value left
+ 
+ */
 
 -(void)makePurchase:(NSString *)item
 {
@@ -330,6 +324,9 @@
     }
 }
 
+//Calculates change using division of integers for total number of cents rather than modular to avoid rounding errors with float/double
+//Updates label of change accordingly
+
 -(void)calcChange:(NSNumber*)amount
 {
     int dubAmt = [amount intValue];
@@ -354,6 +351,9 @@
     
     int numPennies = dubAmt;
     NSLog(@"Num Pennies: %d", numPennies);
+    
+    
+//OLD CODE, HAD ROUNDING ERRORS 
 
     //int numDollars = fmod([amount doubleValue],1.0);
     //double newAmount = [amount doubleValue] - numDollars;

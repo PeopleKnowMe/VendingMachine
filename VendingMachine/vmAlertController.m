@@ -27,6 +27,7 @@
 
 +(void)showAlert:(NSString *)name withMessage:(NSString *)alertMessage
 {
+    //reusable alert method for any class
     UIAlertView *alert =
     [[UIAlertView alloc] initWithTitle:name message:alertMessage delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
